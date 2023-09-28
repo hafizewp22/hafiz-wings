@@ -23,6 +23,33 @@
     <div class="mt-5"></div>
 
     <div class="mt-4">
+        @foreach ($transactionDetails as $item)
+            <input type="hidden" name="product_id" value="{{ $item->id }}">
+            <li class="list-group-item product_data">
+                <div class="row g-0">
+                    <div class="rounded col-sm-6 col-md-2 mt-3">
+                        <div
+                            class="p-3 mb-4 bg-info text-dark rounded col-6 d-flex flex-column justify-content-center box-images">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 m-2">
+                        <div class="h5"> {{ $item->products->product_name }} </div>
+
+                        <div class="h6">
+                            {{ $item->quantity }} {{ $item->unit }}
+                        </div>
+
+
+
+                        <div class="h6 text-muted">
+                            Subtotal: @currency($item->sub_total)
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        @endforeach
+
         <button type="button" class="btn btn-info form-control text-light">
             CONFIRM
         </button>

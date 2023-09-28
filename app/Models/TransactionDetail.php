@@ -22,4 +22,9 @@ class TransactionDetail extends Model
         'sub_total',
         'currency',
     ];
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

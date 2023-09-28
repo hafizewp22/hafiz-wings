@@ -12,9 +12,17 @@
                 Logout
             </a>
         </div>
+
         <div class=" mt-3">
             <h3 class="text-center fw-bold">PRODUCT DETAIL</h3>
         </div>
+
+        @if (session('success'))
+            <div class="alert alert-success mt-5">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="row g-0 mt-4">
             <div class="rounded col-sm-6 col-md-3 mt-3">
                 <div
@@ -49,7 +57,11 @@
                 <div class="h6 mt-3">Dimension: {{ $products->dimension }}</div>
                 <div class="h6 mt-3">Price Unit: {{ $products->unit }}</div>
 
-                <button class="h6 mt-4 btn btn-info d-flex text-light">BUY</button>
+                <form action="{{ route('addToCart') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $products->id }}">
+                    <button class="h6 mt-4 btn btn-info d-flex text-light">BUY</button>
+                </form>
             </div>
 
             <div class="d-flex justify-content-center row">

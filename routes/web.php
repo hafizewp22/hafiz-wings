@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
     // });
 
     Route::get('/', [ProductController::class, 'index']);
-
     Route::get('product-detail/{productCode}', [ProductController::class, 'productDetail']);
+
     Route::get('checkout', [ProductController::class, 'checkout']);
+    Route::post('add-to-cart', [ProductController::class, 'addToCart'])->name('addToCart');
 });

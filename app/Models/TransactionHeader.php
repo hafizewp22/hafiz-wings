@@ -19,4 +19,9 @@ class TransactionHeader extends Model
         'total',
         'date',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
