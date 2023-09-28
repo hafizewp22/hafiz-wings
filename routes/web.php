@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::middleware('only_guest')->group(function () {
+    Route::get('login', [UserController::class, 'login'])->name('login');
+    Route::post('login', [UserController::class, 'authenticating']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('logout', [UserController::class, 'logout']);
+
+    Route::get('/', [ProductController::class, 'index']);
+
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
+
+    Route::get('/', [ProductController::class, 'index']);
 });
