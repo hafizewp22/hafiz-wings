@@ -13,4 +13,19 @@ class ProductController extends Controller
 
         return view('product-list', compact('products'));
     }
+
+    public function productDetail($productCode)
+    {
+        $products = Product::where('product_code', $productCode)->first();
+        $nextProduct = Product::all();
+
+        return view('product-detail', compact('products', 'nextProduct'));
+    }
+
+    public function checkout()
+    {
+        $products = Product::all();
+
+        return view('checkout', compact('products'));
+    }
 }

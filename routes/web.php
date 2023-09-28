@@ -24,11 +24,12 @@ Route::middleware('only_guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout']);
 
-    Route::get('/', [ProductController::class, 'index']);
-
     // Route::get('/', function () {
     //     return view('welcome');
     // });
 
     Route::get('/', [ProductController::class, 'index']);
+
+    Route::get('product-detail/{productCode}', [ProductController::class, 'productDetail']);
+    Route::get('checkout', [ProductController::class, 'checkout']);
 });

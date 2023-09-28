@@ -8,24 +8,8 @@
     <title>Rental Buku | Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-
-<style>
-    .main {
-        height: 100vh;
-        box-sizing: border-box;
-    }
-
-    .login-box {
-        width: 500px;
-        border: solid 1px;
-        padding: 30px;
-    }
-
-    form div {
-        margin-bottom: 15px;
-    }
-</style>
 
 <body>
     <div class="main d-flex flex-column justify-content-center align-items-center">
