@@ -46,29 +46,31 @@ class ProductController extends Controller
 
         $nextDocumentCode = $lastTransaction ? $this->getNextDocumentCode($lastTransaction->document_code) : 'AAA';
 
-        $existingTransactionDetail = TransactionDetail::where('product_id', $productId)->first();
+        $existingTransactionDetail = TransactionDetail::where('product_id', $productId)
+        // ->where('document_code', $nextDocumentCode)
+        ->first();
 
         $persen = $product->discount / 100;
-        $diskon = $persen * $product->price;
-        $setelahDiskon = $product->price - $diskon;
+    $diskon = $persen * $product->price;
+    $setelahDiskon = $product->price - $diskon;
 
-        if ($existingTransactionDetail) {
-            $existingTransactionDetail->quantity += 1;
-            $existingTransactionDetail->sub_total = $existingTransactionDetail->quantity * $product->setelahDiskon;
-            $existingTransactionDetail->save();
-        } else {
-            $transactionDetail = new TransactionDetail();
-            $transactionDetail->document_code = $nextDocumentCode;
-            $transactionDetail->document_number = $formattedDocumentNumber;
-            $transactionDetail->product_id = $product->id;
-            $transactionDetail->product_code = $product->product_code;
-            $transactionDetail->price = $product->price;
-            $transactionDetail->quantity = 1;
-            $transactionDetail->unit = $product->unit;
-            $transactionDetail->sub_total = $setelahDiskon;
-            $transactionDetail->currency = $product->currency;
-            $transactionDetail->save();
-        }
+    if ($existingTransactionDetail) {
+        $existingTransactionDetail->quantity += 1;
+        $existingTransactionDetail->sub_total = $existingTransactionDetail->quantity * $setelahDiskon; 
+        $existingTransactionDetail->save();
+    } else {
+        $transactionDetail = new TransactionDetail();
+        $transactionDetail->document_code = $nextDocumentCode;
+        $transactionDetail->document_number = $formattedDocumentNumber;
+        $transactionDetail->product_id = $product->id;
+        $transactionDetail->product_code = $product->product_code;
+        $transactionDetail->price = $product->price;
+        $transactionDetail->quantity = 1;
+        $transactionDetail->unit = $product->unit;
+        $transactionDetail->sub_total = $setelahDiskon; 
+        $transactionDetail->currency = $product->currency;
+        $transactionDetail->save();
+    }
 
         return redirect()->back()->with('success', 'Product added to cart successfully');
     }
