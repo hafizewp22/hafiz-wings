@@ -39,8 +39,6 @@
                             {{ $item->quantity }} {{ $item->unit }}
                         </div>
 
-
-
                         <div class="h6 text-muted">
                             Subtotal: @currency($item->sub_total)
                         </div>
@@ -50,7 +48,11 @@
             </li>
         @endforeach
 
-        <button type="button" class="btn btn-info form-control text-light">
+        <div>
+            <h3 class="text-center fw-bold mt-3 h5 border p-2">TOTAL : @currency($sub_total)</h3>
+        </div>
+
+        <button type="button" class="btn btn-info form-control text-light mt-4">
             CONFIRM
         </button>
     </div>

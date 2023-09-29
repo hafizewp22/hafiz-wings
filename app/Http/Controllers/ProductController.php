@@ -27,8 +27,9 @@ class ProductController extends Controller
     public function checkout()
     {
         $transactionDetails = TransactionDetail::all();
+        $sub_total = TransactionDetail::sum('sub_total');
 
-        return view('checkout', compact('transactionDetails'));
+        return view('checkout', compact('transactionDetails', 'sub_total'));
     }
 
     public function addToCart(Request $request)
@@ -47,12 +48,11 @@ class ProductController extends Controller
         $nextDocumentCode = $lastTransaction ? $this->getNextDocumentCode($lastTransaction->document_code) : 'AAA';
 
         $existingTransactionDetail = TransactionDetail::where('product_id', $productId)
-        // ->where('document_code', $nextDocumentCode)
         ->first();
 
         $persen = $product->discount / 100;
-    $diskon = $persen * $product->price;
-    $setelahDiskon = $product->price - $diskon;
+        $diskon = $persen * $product->price;
+        $setelahDiskon = $product->price - $diskon;
 
     if ($existingTransactionDetail) {
         $existingTransactionDetail->quantity += 1;
