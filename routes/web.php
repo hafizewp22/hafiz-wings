@@ -33,4 +33,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('checkout', [ProductController::class, 'checkout']);
     Route::post('add-to-cart', [ProductController::class, 'addToCart'])->name('addToCart');
+    Route::post('/update-cart', [ProductController::class, 'updateCart']);
+
+
+    Route::post('confirm-transaction', [ProductController::class, 'confirmTransaction'])->name('confirmTransaction');
+    Route::get('report', [ProductController::class, 'report']);
+    Route::get('report-detail', [ProductController::class, 'reportDetail']);
 });

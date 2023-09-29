@@ -23,6 +23,11 @@ class TransactionDetail extends Model
         'currency',
     ];
 
+    protected $casts = [
+        'sub_total' => 'float',
+    ];
+
+
     public function products()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');

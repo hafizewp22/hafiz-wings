@@ -4,6 +4,9 @@
 
 @section('content')
     <div class="d-flex justify-content-end">
+        <a href="/" class="me-3">
+            Back
+        </a>
         <a href="logout" class="me-3">
             Logout
         </a>
@@ -23,37 +26,44 @@
     <div class="mt-5"></div>
 
     <div class="mt-4">
-        @foreach ($transactionDetails as $item)
-            <input type="hidden" name="product_id" value="{{ $item->id }}">
-            <li class="list-group-item product_data">
-                <div class="row g-0">
-                    <div class="rounded col-sm-6 col-md-2 mt-3">
-                        <div
-                            class="p-3 mb-4 bg-info text-dark rounded col-6 d-flex flex-column justify-content-center box-images">
+        @if ($transactionDetails->count() > 0)
+            @foreach ($transactionDetails as $item)
+                <input type="hidden" name="product_id" value="{{ $item->id }}">
+                <li class="list-group-item product_data">
+                    <div class="row g-0">
+                        <div class="rounded col-sm-6 col-md-2 mt-3">
+                            <div
+                                class="p-3 mb-4 bg-info text-dark rounded col-6 d-flex flex-column justify-content-center box-images">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 m-2">
+                            <div class="h5"> {{ $item->products->product_name }} </div>
+
+                            <div class="h6 col-sm-6 col-md-6">
+                                <input type="number" style="width:50px;" value="{{ $item->quantity }}"
+                                    id="quantity_{{ $item->id }}" data-product-id="{{ $item->id }}">
+                                {{ $item->unit }}
+                            </div>
+
+                            <div class="h6 text-muted">
+                                Subtotal: @currency($item->sub_total)
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 m-2">
-                        <div class="h5"> {{ $item->products->product_name }} </div>
+                </li>
+            @endforeach
 
-                        <div class="h6">
-                            {{ $item->quantity }} {{ $item->unit }}
-                        </div>
+            <div>
+                <h3 class="text-center fw-bold mt-3 h5 border p-2">TOTAL : @currency($sub_total)</h3>
+            </div>
 
-                        <div class="h6 text-muted">
-                            Subtotal: @currency($item->sub_total)
-                        </div>
-                    </div>
+            <form action="{{ route('confirmTransaction') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-info form-control text-light mt-4">CCONFIRM</button>
+            </form>
+        @else
+            <h3 class="text-center h6">No Data</h3>
+        @endif
 
-                </div>
-            </li>
-        @endforeach
-
-        <div>
-            <h3 class="text-center fw-bold mt-3 h5 border p-2">TOTAL : @currency($sub_total)</h3>
-        </div>
-
-        <button type="button" class="btn btn-info form-control text-light mt-4">
-            CONFIRM
-        </button>
     </div>
 @endsection

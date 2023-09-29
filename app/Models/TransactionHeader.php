@@ -18,6 +18,7 @@ class TransactionHeader extends Model
         'user',
         'total',
         'date',
+        'item',
     ];
 
     public function users()
