@@ -7,6 +7,7 @@ use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -145,6 +146,7 @@ class ProductController extends Controller
     {
         $transactionHeaders = TransactionHeader::all();
 
-        return view('report-detail', compact('transactionHeaders'));
+        $pdf = PDF::loadview('report-detail', ['transactionHeaders' => $transactionHeaders]);
+        return $pdf->download('reportDetail.pdf');
     }
 }
